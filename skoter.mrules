@@ -123,28 +123,43 @@ properties
 	max-zoom : 14.1
 	
 rules
+	target : place city
+		define
+			font-weight : bold
+			font-size : 4:9;6:12;14:18
+			min-zoom : 4
+			max-zoom : 14
+		draw : text
+
+	target : place town
+		define
+			font-weight : bold
+			font-size : 6:10;9:12;13:14;14:18
+			min-zoom : 6
+		draw : text
+	target : place village
+		define
+			font-weight : bold
+			font-size : 9:10;13:13;14:17
+			min-zoom : 9
+		draw : text
+
+	target : water
+		define
+			min-zoom : 11
+			font-size : 11:10.5;15:11
+			text-color : #448
+		draw : text
+		
 	target : $featuretype(point)
 		if : place*
 			define
 				font-weight : bold
-	
-			if : *city
+			if : *hamlet
 				define
-					font-size : 4:9;6:12;14:18
-					min-zoom : 4
-					max-zoom : 14
-			elseif : *town
-				define
-					font-size : 6:10;9:12;13:14;14:18
-					min-zoom : 6
-			elseif : *village
-				define
-					font-size : 9:10;13:13;14:17
-					min-zoom : 9
-			elseif : *hamlet
-				define
-					font-size : 12:10;14:12
+					font-size : 11:10;14:12
 					min-zoom : 11
+					text-color : #444
 			elseif : *suburb
 				define
 					font-size : 13:10;20:20
@@ -182,10 +197,12 @@ rules
 			line-opacity : 0.5
 			line-width : 9:1;13:3
 			line-style : dash
-			font-size : 9:8.5;10:12;14:16
-			text-color : green
-			font-weight : normal
 		draw : line
+		define
+			min-zoom : 10
+			font-size : 10:11;14:15
+			text-color : #007000
+			font-weight : normal
 		draw : text
 
 
@@ -398,11 +415,6 @@ rules
 				min-zoom : 5
 				fill-color : #B5D0D0
 			draw : fill
-			
-			define
-				min-zoom : 12
-				font-size : 11:9.5;13:10;15:11
-			draw : text
 			
 		elseif : residential area
 			define
