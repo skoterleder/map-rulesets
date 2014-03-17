@@ -1,0 +1,279 @@
+features
+	points, areas
+		fuel : amenity=fuel
+		shelter : amenity = shelter
+		restaurant : amenity=restaurant
+		cafe : amenity=cafe
+		tourism wilderness_hut : tourism=wilderness_hut
+		tourism viewpoint : tourism=viewpoint
+		tourism picnic_site : tourism=picnic_site
+		amenity fast_food : amenity=fast_food
+		amenity bbq : amenity = bbq
+	
+	areas
+		no snowmobile access : snowmobile=no
+	lines
+		ice_road : ice_road=yes
+
+		highway snowmobile : snowmobile=designated OR snowmobile=yes OR highway=snowmobile or snowmobile=permissive or snowmobile=official or snowmobile=destination or snowmobile=delivery or snowmobile=private
+		toll : snowmobile=* AND toll=yes
+
+
+properties
+	map-background-opacity	: 0
+
+	font-weight : bold
+	font-family : Verdana
+	text-max-width : 7
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	text-align-horizontal : center
+	text-align-vertical : center
+	font-stretch : 0.9
+	map.rendering.lflp.min-buffer-space : 5
+	map.rendering.lflp.max-allowed-corner-angle : 40
+	max-zoom : 17
+
+rules
+
+	target : no snowmobile access
+		define
+			min-zoom : 7
+			fill-color : #FE9898
+			line-color : #FE8888
+			line-style : dash
+			line-width : 2
+			fill-hatch : diagonalcross
+			fill-hatch-color : #D3F2D2
+			fill-hatch-opacity : 0.35
+		draw : fill
+
+
+	
+	target : highway*
+		define
+			font-size : 11:11;13:10;14:10.3
+			font-weight : bold
+			border-width : 15%
+	
+		for : snowmobile=no
+			define 
+				min-zoom : 10
+				shape : custom
+				shape-def : p:#CC4365;pw:2.5;m:5,5;l:-5,-5;m:-5,5;l:5,-5
+				shape-size : 10:3;14:9
+				shape-spacing : 1
+				shape-orientation: flow
+			draw : shape 
+			
+
+
+		//////////////////////////////////////////////////////////////////
+
+		for : snowmobile 
+			define 
+				line-opacity : 1
+
+				min-zoom : 4
+				// grön line-color : #4848FF
+				line-color : #4040FF
+				line-width : 4:0.2;6:0.4;15:3
+				border-style : solid
+				// border-color : white black 60%
+				border-color : #888
+				border-width : 4:0.3;10:1.3;16:0.8
+
+			for : snowmobile=yes
+				define
+					line-color : #303
+			
+			for : snowmobile=permissive
+				define
+					line-color : Violet
+
+			for : snowmobile=private
+				define
+					line-color : #FE2E2E
+
+			for : toll
+				define
+				//	line-color : red
+					//line-color : #2E2EFE
+					//border-color : #FE2E2E 
+					//border-width : 6:0.2;8:1.75;13:2.5;14:3
+					// line-width :   5:1  ;8:2.5 ;12:3.4;13:4;15:11
+
+			for : ice_road
+				define
+					// min-zoom : 11
+					line-style : dashdot
+					border-style : none
+			draw : line
+
+			define
+				
+				//Från vägar font-size : 11:11;13:10;14:10.3 
+				font-size : 11:11;13:12;14:11
+				// font-size : 20
+				min-zoom : 10
+			draw : text
+	
+	
+	target: highway*
+		for : snowmobile toll 
+			define 
+				line-opacity : 0.90
+				min-zoom : 5
+				// grön line-color : #4848FF
+				line-color : red
+				line-width : 5:1;10:1;14:2.5
+				line-offset : 5:1;9:1;14:4
+				line-offset-sides : both 
+			
+		for : ice_road
+			define
+				line-style : none
+				border-style : none
+		
+		draw : line
+
+
+
+
+
+	target: shelter
+		define
+			min-zoom : 10
+			icon-image : icons/SJJB/png/accommodation_shelter2.n.32.png
+			icon-width : 10:12;14:14
+		draw : icon
+		
+		define	
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 8
+			text-align-vertical : near			
+			font-size : 11
+			text-max-width : 20		
+		draw : text
+	
+	target: fuel
+		define
+			min-zoom : 10
+			icon-image : icons/SJJB/png/transport_fuel.n.32.png
+			icon-width : 16
+		draw : icon
+		define	
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 8
+			text-align-vertical : near			
+			font-size : 11
+			text-max-width : 20		
+		draw : text
+
+	target : tourism wilderness_hut
+		define
+			min-zoom : 10
+			icon-image : icons/SJJB/png/accommodation_youth_hostel.n.32.png
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 30%
+			text-align-vertical : near			
+			font-size : 10
+			text-max-width : 10
+		draw : text
+		
+	target : tourism viewpoint
+		define
+			min-zoom : 10
+			icon-image : icons/SJJB/png/tourist_view_point.p.32.png
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 30%
+			text-align-vertical : near			
+			font-size : 10
+			text-max-width : 10
+		draw : text
+
+	target: restaurant
+		define
+			min-zoom : 10
+			icon-image : icons/SJJB/png/food_restaurant.n.32.png
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 30%
+			text-align-vertical : near			
+			font-size : 10
+			text-max-width : 10
+		draw : text		
+	
+	target: cafe
+		define
+			icon-image : icons/SJJB/png/food_cafe.n.32.png
+			min-zoom : 12
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 30%
+			text-align-vertical : near			
+			font-size : 10
+			text-max-width : 10
+		draw : text	
+		
+	target : amenity fast_food
+		define
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 30%
+			text-align-vertical : near			
+			font-size : 10
+			text-max-width : 10
+		draw : text
+		define
+			icon-image : icons/SJJB/png/food_fastfood2.glow.32.png
+			min-zoom : 11
+			icon-width : 16
+		draw : icon
+
+	target: amenity bbq
+		define
+			min-zoom : 10
+			icon-image : icons/SJJB/png/amenity_firestation3.glow.32.png
+			icon-width : 10:14;14:16
+		draw : icon
+		
+		define	
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 8
+			text-align-vertical : near			
+			font-size : 11
+			text-max-width : 20		
+		draw : text
+
+	target : tourism picnic_site
+		define
+			min-zoom : 13
+			text-color : #2B80FE
+			text-offset-vertical : 30%
+			text-align-vertical : near			
+			font-size : 10
+			text-max-width : 10
+		draw : text
+		define
+			icon-image : icons/SJJB/png/tourist_picnic.glow.32.png
+			min-zoom : 10
+			icon-width : 20
+		draw : icon
