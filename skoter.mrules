@@ -125,7 +125,6 @@ properties
 rules
 	target : place city
 		define
-			font-weight : bold
 			font-size : 4:9;6:12;14:18
 			min-zoom : 4
 			max-zoom : 14
@@ -133,13 +132,11 @@ rules
 
 	target : place town
 		define
-			font-weight : bold
 			font-size : 6:10;9:12;13:14;14:18
 			min-zoom : 6
 		draw : text
 	target : place village
 		define
-			font-weight : bold
 			font-size : 9:10;13:13;14:17
 			min-zoom : 9
 		draw : text
@@ -151,21 +148,18 @@ rules
 			text-color : #448
 		draw : text
 		
-	target : $featuretype(point)
-		if : place*
-			define
-				font-weight : bold
-			if : *hamlet
-				define
-					font-size : 11:10;14:12
-					min-zoom : 11
-					text-color : #444
-			elseif : *suburb
-				define
-					font-size : 13:10;20:20
-					min-zoom : 13
-					text-color : white black 50%
-			draw : text
+	target : place hamlet
+		define
+			font-size : 11:10;14:12
+			min-zoom : 11
+			text-color : #444
+		draw : text
+	target : place suburb
+		define
+			font-size : 13:10;20:20
+			min-zoom : 13
+			text-color : white black 50%
+		draw : text
 
 	target : no snowmobile access
 		define
