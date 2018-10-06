@@ -1,7 +1,7 @@
 features
 	points, areas
 		fuel : amenity=fuel
-		shelter : amenity = shelter
+		shelter : amenity = shelter  AND NOT shelter_type=public_transport
 		amenity bbq : amenity = bbq
 		tourism wilderness_hut : tourism=wilderness_hut
 		tourism viewpoint : tourism=viewpoint
@@ -78,7 +78,7 @@ features
 		aeroway runway : aeroway=runway
 		aeroway taxiway : aeroway=taxiway
 
-		boundary country : boundary=administrative AND ( admin_level=2 OR admin_level=1 )  AND NOT natural=coastline
+		boundary country : ( boundary=administrative AND admin_level < 4 AND NOT natural=coastline ) OR ( maritime=yes AND NOT admin_level=4)
 		boundary province : boundary=administrative AND admin_level=4
 		boundary municipal : boundary=administrative AND admin_level=7
 
@@ -95,7 +95,8 @@ features
 		aerialway : aerialway
 
 	points
-		place city : place=city
+		place capital : place=city AND ( capital = yes OR render-place=city )
+		place city : place=city OR render-place=city
 		place town : place=town
 		place village : place=village
 		place hamlet : place=hamlet
@@ -123,6 +124,13 @@ properties
 	max-zoom : 14.1
 	
 rules
+	target : place capital
+		define
+			font-size : 4:12;6:13;14:18
+			min-zoom : 4
+			max-zoom : 14
+		draw : text
+
 	target : place city
 		define
 			font-size : 4:9;6:12;14:18
@@ -133,7 +141,7 @@ rules
 	target : place town
 		define
 			font-size : 6:10;9:12;13:14;14:18
-			min-zoom : 6
+			min-zoom : 7
 		draw : text
 	target : place village
 		define
